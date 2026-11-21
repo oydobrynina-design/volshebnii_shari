@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4C0203">
+<title>Волшебные шары · Новый год</title>
+<meta name="description" content="Выберите один из пяти волшебных шаров и узнайте, в каком стиле упаковать и вручить подарки.">
+
+<!-- шрифты для публикации -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Neucha&family=Golos+Text:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- те же шрифты локально: нужны только для предпросмотра, на хостинге просто не найдутся -->
+<link rel="stylesheet" href="http://resources:8080/preview-resources/fonts/5.3.0/cormorant-garamond.css">
+<link rel="stylesheet" href="http://resources:8080/preview-resources/fonts/5.3.0/neucha.css">
+<link rel="stylesheet" href="http://resources:8080/preview-resources/fonts/5.3.0/golos-text.css">
+
+<style>
+:root{
+  --wine:#4C0203;
+  --wine-2:#400203;
+  --wine-3:#2C0102;
+  --cream:#FCF7DB;
+  --cream-hi:#FFFCE6;
+  --gold:#D9B98A;
+  --gold-hi:#F0DDB4;
+  --green:#445B3F;
+  --ink:#3A1108;
+
+  --f-display:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --f-script:'Neucha','Segoe Script',cursive;
+  --f-body:'Golos Text','Helvetica Neue',Arial,sans-serif;
+
+  --pad:24px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0;background:var(--wine)}
+body{
+  font-family:var(--f-body);color:var(--cream);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block}
+button{font-family:inherit}
+
+/* ---------- сцена ---------- */
+.page{
+  position:relative;min-height:100svh;
+  max-width:560px;margin:0 auto;
+  background:
+    radial-gradient(120% 58% at 50% -8%, rgba(196,78,42,.28) 0%, rgba(76,2,3,0) 62%),
+    radial-gradient(95% 42% at 50% 106%, rgba(96,10,8,.5) 0%, rgba(50,1,2,0) 70%),
+    linear-gradient(178deg,#400203 0%, #4C0203 34%, #440203 68%, #2C0102 100%);
+  overflow:hidden;
+}
+.page::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;z-index:0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 3%, rgba(255,246,220,.5), transparent 60%),
+    radial-gradient(1.1px 1.1px at 74% 2%, rgba(255,246,220,.4), transparent 60%),
+    radial-gradient(1.6px 1.6px at 88% 9%, rgba(255,246,220,.3), transparent 60%),
+    radial-gradient(1.2px 1.2px at 30% 16%, rgba(255,246,220,.24), transparent 60%),
+    radial-gradient(1.5px 1.5px at 63% 27%, rgba(255,246,220,.22), transparent 60%),
+    radial-gradient(1.1px 1.1px at 20% 38%, rgba(255,246,220,.2), transparent 60%),
+    radial-gradient(1.3px 1.3px at 84% 46%, rgba(255,246,220,.18), transparent 60%),
+    radial-gradient(1.2px 1.2px at 44% 58%, rgba(255,246,220,.16), transparent 60%),
+    radial-gradient(1.4px 1.4px at 70% 72%, rgba(255,246,220,.14), transparent 60%);
+}
+/* ---------- новогодний декор: живая ель ---------- */
+.deco{position:absolute;left:0;right:0;pointer-events:none;z-index:2;line-height:0}
+.deco svg{display:block;width:100%;height:auto}
+
+/* главный экран: ветки свисают сверху */
+.deco--top{top:0;height:232px;background:url(assets/fir-top.webp) 50% 0/cover no-repeat;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.8) 48%,rgba(0,0,0,.34) 70%,transparent 92%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.8) 48%,rgba(0,0,0,.34) 70%,transparent 92%)}
+
+/* низ главного экрана: ветки поднимаются снизу и растворяются к следующей секции */
+.deco--base{bottom:0;height:238px;background:url(assets/fir-bottom.webp) 50% 100%/cover no-repeat;
+  -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 46%,rgba(0,0,0,.82) 62%,rgba(0,0,0,.36) 82%,transparent 96%);
+          mask-image:linear-gradient(0deg,#000 0%,#000 46%,rgba(0,0,0,.82) 62%,rgba(0,0,0,.36) 82%,transparent 96%)}
+
+/* низ страницы: ветки стоят плотно у нижней кромки */
+.deco--floor{bottom:0;height:250px;background:url(assets/fir-bottom.webp) 50% 100%/cover no-repeat;
+  -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 30%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.26) 70%,transparent 90%);
+          mask-image:linear-gradient(0deg,#000 0%,#000 30%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.26) 70%,transparent 90%)}
+
+/* векторную хвою и лампы прячем — их место занял растр */
+.deco--top svg,.deco--base svg,.deco--floor svg{display:none!important}
+
+/* ---------- мигающие лампочки ----------
+   Слои лежат поверх той же фотографии и с той же геометрией (тот же кадр,
+   то же выравнивание cover), поэтому свет садится точно в лампочки при любой
+   ширине экрана. Каждый слой — своя группа лампочек с собственным периодом:
+   гирлянда переливается волной, а не мигает хором.
+
+   Файлы — чёрный кадр с янтарным ореолом. mode=screen прибавляет свет к
+   фотографии: чёрное невидимо, поэтому никакой рамки или диска вокруг лампы
+   не появляется. Гасить лампу затемнением нельзя — на белой колбе это
+   читается как серый кружок. */
+.deco__glow{position:absolute;inset:0;pointer-events:none;
+  background-repeat:no-repeat;background-size:cover;
+  mix-blend-mode:screen;opacity:0;animation:lampFlicker 6.4s ease-in-out infinite}
+
+.deco--top .deco__glow,.garland .deco__glow{background-position:50% 0}
+.deco--base .deco__glow,.deco--floor .deco__glow{background-position:50% 100%}
+
+.deco--top .deco__glow:nth-child(1),
+.garland .deco__glow:nth-child(1){background-image:url(assets/lamp-top-1.webp);animation-duration:5.2s;animation-delay:-.4s}
+.deco--top .deco__glow:nth-child(2),
+.garland .deco__glow:nth-child(2){background-image:url(assets/lamp-top-2.webp);animation-duration:6.9s;animation-delay:-2.6s}
+.deco--top .deco__glow:nth-child(3),
+.garland .deco__glow:nth-child(3){background-image:url(assets/lamp-top-3.webp);animation-duration:8.1s;animation-delay:-5.1s}
+
+.deco--base .deco__glow:nth-child(1),
+.deco--floor .deco__glow:nth-child(1){background-image:url(assets/lamp-bot-1.webp);animation-duration:6.1s;animation-delay:-1.3s}
+.deco--base .deco__glow:nth-child(2),
+.deco--floor .deco__glow:nth-child(2){background-image:url(assets/lamp-bot-2.webp);animation-duration:7.4s;animation-delay:-3.8s}
+.deco--base .deco__glow:nth-child(3),
+.deco--floor .deco__glow:nth-child(3){background-image:url(assets/lamp-bot-3.webp);animation-duration:5.7s;animation-delay:-.9s}
+
+/* лампа разгорается и притухает — плавно, без щелчка */
+@keyframes lampFlicker{
+  0%,100%{opacity:.18}
+  9%{opacity:.95}
+  17%{opacity:.42}
+  26%{opacity:1}
+  40%{opacity:.26}
+  54%{opacity:.82}
+  66%{opacity:.3}
+  78%{opacity:.9}
+  89%{opacity:.34}
+}
+
+/* при отключённых анимациях огоньки просто горят ровно */
+@media (prefers-reduced-motion: reduce){
+  .deco__glow{animation:none;opacity:.66}
+}
+
+@media (min-width:561px){
+  .deco--top,.deco--base{height:300px}
+  .deco--floor{height:320px}
+}
+
+.hairline{position:absolute;inset:13px;border:1px solid rgba(217,185,138,.22);pointer-events:none;z-index:1}
+
+.wrap{position:relative;z-index:2;padding:0 var(--pad)}
+.k-script{font-family:var(--f-script);color:var(--gold-hi);margin:0;line-height:1;text-shadow:0 2px 22px rgba(240,200,120,.28)}
+.k-caps{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0}
+.k-body{font-size:13.5px;line-height:1.72;color:rgba(252,247,219,.87);margin:0;font-weight:300}
+
+.ornament{display:flex;align-items:center;gap:11px;justify-content:center;color:var(--gold);margin:0}
+.ornament::before,.ornament::after{content:"";height:1px;flex:1;max-width:80px;
+  background:linear-gradient(90deg,transparent,rgba(217,185,138,.65))}
+.ornament::after{background:linear-gradient(90deg,rgba(217,185,138,.65),transparent)}
+.ornament svg{width:13px;height:13px;flex:0 0 auto;opacity:.9}
+
+/* ---------- 1. приветствие ---------- */
+.hero{position:relative;padding:152px var(--pad) 202px;text-align:center;display:flex;flex-direction:column;
+  justify-content:center;min-height:100svh;overflow:hidden}
+.hero>*:not(.deco){position:relative;z-index:3}
+.hero__ho{font-size:46px;margin:0 0 12px}
+.hero__greet{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-hi);margin:0 auto;
+  line-height:1.9;max-width:300px;text-align:center}
+.hero__rule{margin:22px auto 24px;max-width:220px}
+.hero__text{max-width:292px;margin:0 auto}
+.hero__date{margin:0;padding-top:30px;font-family:var(--f-display);font-style:italic;font-size:15px;color:var(--gold-hi);letter-spacing:.05em;line-height:1.6}
+.hero__date small{display:block;font-family:var(--f-body);font-style:normal;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(252,247,219,.42);margin-top:8px}
+.hero__cue{margin:0 auto;padding-top:28px;display:flex;flex-direction:column;align-items:center;gap:9px;
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(252,247,219,.42)}
+.hero__cue i{display:block;width:1px;height:30px;background:linear-gradient(180deg,rgba(217,185,138,.7),transparent)}
+
+/* ---------- 2. механика ---------- */
+.mech{padding-top:34px;padding-bottom:36px}
+.card-cream{
+  background:linear-gradient(180deg,var(--cream-hi),var(--cream) 58%,#F6EFCE);
+  color:var(--ink);position:relative;
+  box-shadow:0 24px 46px -22px rgba(0,0,0,.7), inset 0 0 0 1px rgba(168,127,82,.32);
+  padding:0 0 24px;
+}
+/* гирлянда на кремовой карточке: растр мягко врастает в кремовый лист */
+.garland{position:relative;height:106px;overflow:hidden;
+  background:url(assets/fir-top.webp) 50% 0/cover no-repeat;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 28%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.26) 78%,transparent 96%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 28%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.26) 78%,transparent 96%)}
+.garland svg{position:absolute;inset:0;width:100%;height:100%;display:none}
+
+/* реалистичный атласный бант */
+.bow{width:132px;height:auto;margin:-42px auto 0;position:relative;z-index:3;display:block;
+  filter:drop-shadow(0 8px 14px rgba(60,8,4,.34))}
+.bow img{display:block;width:100%;height:auto}
+.card-cream__body{padding:14px 20px 0}
+.card-cream__title{font-family:var(--f-display);font-size:15px;letter-spacing:.2em;text-transform:uppercase;text-align:center;color:#6B1B12;margin:0 0 15px;font-weight:600}
+.card-cream__text{font-size:12.8px;line-height:1.68;color:#4A2318;margin:0}
+.card-cream__text+.card-cream__text{margin-top:10px}
+.card-cream__sign{font-family:var(--f-display);font-style:italic;font-size:17px;color:#8A2B18;text-align:right;margin:16px 0 0}
+
+/* ---------- 3. шары ---------- */
+.balls{padding-top:22px;padding-bottom:44px;text-align:center}
+.balls__title{font-family:var(--f-display);font-size:22px;line-height:1.3;color:var(--cream);margin:0 auto;max-width:310px;font-weight:500}
+.balls__title em{font-style:italic;color:var(--gold-hi)}
+.balls__warn{margin:16px auto 0;max-width:300px;display:inline-flex;align-items:flex-start;gap:8px;padding:9px 12px;
+  border:1px solid rgba(217,185,138,.42);background:rgba(88,8,8,.38);
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi);line-height:1.6;text-align:left}
+.balls__warn svg{width:12px;height:12px;flex:0 0 auto;margin-top:1px}
+
+.hang{margin-top:22px}
+.garl{position:relative;margin-bottom:26px}
+.garl__wire{position:relative;height:1px;margin:0 8px;
+  background:linear-gradient(90deg,transparent,rgba(217,185,138,.42) 8%,rgba(217,185,138,.42) 92%,transparent)}
+.garl__wire i{position:absolute;top:-2.5px;width:5px;height:5px;border-radius:50%;background:var(--gold-hi);
+  box-shadow:0 0 10px 2.5px rgba(240,221,180,.5)}
+.garl__row{display:flex;justify-content:center;align-items:flex-start;gap:2px;position:relative;top:-1px}
+.garl--two .garl__row{gap:14px}
+
+.ball-item{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;cursor:pointer;
+  width:112px;transition:transform .18s ease;flex:0 0 auto}
+.ball-item:active{transform:scale(.955)}
+.ball-item svg{width:112px;height:auto;overflow:visible}
+.ball-item--taken{cursor:default}
+.ball-item--taken:active{transform:none}
+.ball-item--taken svg{filter:grayscale(1) brightness(.5) contrast(.92)}
+.ball-item--mine svg{filter:brightness(1.12) saturate(1.1)}
+.ball-item__cap{font-family:var(--f-display);font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(252,247,219,.6);margin-top:3px;text-align:center;line-height:1.5;max-width:104px;min-height:0}
+.ball-item:not(.ball-item--taken):not(.ball-item--mine) .ball-item__cap{display:none}
+.ball-item--mine .ball-item__cap{color:var(--gold-hi)}
+
+.balls__hint{margin:26px auto 0;font-size:9px;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(252,247,219,.4);display:flex;flex-direction:column;align-items:center;gap:9px}
+.balls__hint i{width:1px;height:22px;background:linear-gradient(180deg,transparent,rgba(217,185,138,.55))}
+
+/* ---------- 4. финал ---------- */
+.final{padding:200px var(--pad) 214px;display:flex;flex-direction:column;text-align:center;position:relative;
+  justify-content:center;min-height:100svh;overflow:hidden}
+.final>*:not(.deco){position:relative;z-index:3}
+.final__title{font-family:var(--f-display);font-size:21px;line-height:1.3;color:var(--cream);margin:0 0 14px;font-weight:500}
+.final__text{max-width:288px;margin:0 auto;font-size:13px;line-height:1.7;color:rgba(252,247,219,.84)}
+.final__name{font-family:var(--f-display);font-style:italic;font-size:17px;color:var(--gold-hi);margin:15px 0 0;letter-spacing:.04em}
+.final__drop{display:flex;flex-direction:column;align-items:center;padding:26px 0 0;color:rgba(240,221,180,.4);
+  gap:8px}
+.final__drop i{width:1px;height:44px;background:linear-gradient(180deg,rgba(217,185,138,.45),rgba(217,185,138,.1))}
+.final__drop svg{width:15px;height:15px;flex:0 0 auto;opacity:.85}
+.final__mid{padding:0 0 6px}
+.final__ho{font-family:var(--f-script);font-size:38px;color:var(--gold-hi);margin:18px 0 0;line-height:1}
+.final__sig{font-size:8.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(252,247,219,.38);margin:9px 0 0}
+.final__thorn{display:flex;align-items:center;justify-content:center;gap:9px;color:rgba(217,185,138,.45);margin-top:14px}
+/* фигура стоит в собственной сцене, низ силуэта перекрывают ветки:
+   ни одна кромка спрайта не читается как обрезка по линейке */
+.final{padding-bottom:0}
+.final__stage{position:relative;width:min(74%,320px);margin:12px auto 0}
+.final .final__santa{display:block;position:relative;width:100%;height:auto;z-index:1;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.45));
+  -webkit-mask-image:
+    linear-gradient(90deg,transparent 0,#000 5%,#000 92%,transparent 100%),
+    linear-gradient(180deg,transparent 0,#000 4%,#000 88%,transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(90deg,transparent 0,#000 5%,#000 92%,transparent 100%),
+    linear-gradient(180deg,transparent 0,#000 4%,#000 88%,transparent 100%);
+          mask-composite:intersect}
+.final__branches{position:absolute;left:-14%;right:-14%;bottom:-10px;height:142px;z-index:2;
+  background:url(assets/fir-branches.webp) 50% 100%/100% auto no-repeat;pointer-events:none}
+.final__mid{position:relative;z-index:3}
+
+@media (min-width:420px){
+  .bow{width:146px;margin-top:-46px}
+  .final__stage{width:min(72%,336px)}
+  .final__branches{height:164px}
+}
+@media (min-width:561px){
+  .final__stage{width:338px}
+}
+@media (max-width:340px){
+  .bow{width:112px;margin-top:-36px}
+  .final__stage{width:78%}
+  .final__branches{height:122px}
+}
+@media (prefers-reduced-motion: no-preference){
+  .final .final__santa{animation:santaBreathe 9s ease-in-out infinite}
+  @keyframes santaBreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+}
+.final__thorn i{width:30px;height:1px;background:rgba(217,185,138,.35)}
+
+
+/* ---------- подтверждение ---------- */
+.confirm{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:26px}
+.confirm.is-on{display:flex}
+.confirm__veil{position:absolute;inset:0;background:rgba(18,0,0,.74);backdrop-filter:blur(3px)}
+.confirm__card{position:relative;width:100%;max-width:330px;background:linear-gradient(180deg,var(--cream-hi),var(--cream) 60%,#F6EFCE);
+  color:var(--ink);padding:26px 22px 20px;text-align:center;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8);
+  animation:pop .26s cubic-bezier(.2,.9,.3,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.confirm__ball{width:76px;margin:0 auto 6px}
+.confirm__ball svg{width:76px;height:auto}
+.confirm__title{font-family:var(--f-display);font-size:20px;line-height:1.25;color:#6B1B12;margin:6px 0 8px;font-weight:600}
+.confirm__text{font-size:12.5px;line-height:1.6;color:#4A2318;margin:0}
+.confirm__text b{font-weight:500}
+.confirm__btn{width:100%;border:0;padding:14px;margin-top:16px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  background:linear-gradient(180deg,#7A2114,#5C1509);color:var(--cream);cursor:pointer;
+  box-shadow:0 10px 20px -10px rgba(0,0,0,.6)}
+.confirm__btn:active{transform:translateY(1px)}
+.confirm__btn--ghost{background:none;color:#7A2114;box-shadow:none;border:1px solid rgba(122,33,20,.4);margin-top:8px}
+.confirm__x{position:absolute;right:8px;top:8px;border:0;background:none;color:#8A5B3A;font-size:20px;
+  width:34px;height:34px;cursor:pointer;line-height:1}
+
+/* ---------- сцена раскрытия ---------- */
+.reveal{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;justify-content:flex-start;
+  background:radial-gradient(circle at 50% 34%, #5A0A07 0%, #300202 58%, #140000 100%)}
+.reveal.is-on{display:flex}
+.reveal__stage{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-height:0;padding:0 24px}
+.reveal__ball{width:168px;position:relative;z-index:4;will-change:transform,opacity;flex:0 0 auto}
+.reveal__ball svg{width:168px;height:auto}
+.reveal__glow{position:absolute;left:50%;top:calc(50% - 30px);width:130px;height:130px;transform:translate(-50%,-50%);
+  border-radius:50%;opacity:0;pointer-events:none;z-index:2;
+  background:radial-gradient(circle,rgba(255,246,214,.95) 0%,rgba(255,224,158,.45) 32%,rgba(255,214,140,0) 68%)}
+.reveal__flash{position:absolute;left:50%;top:calc(50% - 30px);width:10px;height:10px;transform:translate(-50%,-50%);
+  border-radius:50%;opacity:0;pointer-events:none;z-index:6;
+  box-shadow:0 0 0 12px rgba(255,240,205,.9),0 0 0 36px rgba(255,230,180,.42),0 0 0 74px rgba(255,220,150,.18)}
+.reveal__cracks{position:absolute;left:50%;top:calc(50% - 30px);width:168px;height:168px;margin:-84px 0 0 -84px;z-index:5;opacity:0}
+.reveal__cracks svg{width:100%;height:100%}
+.reveal__shards{position:absolute;left:50%;top:calc(50% - 30px);width:0;height:0;z-index:5}
+.reveal__shard{position:absolute;width:16px;height:20px;opacity:0;left:-8px;top:-10px;
+  background:linear-gradient(150deg,rgba(255,252,235,.96),rgba(240,221,180,.42));
+  clip-path:polygon(0% 12%,78% 0%,100% 64%,34% 100%);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.reveal__caption{position:relative;margin:38px 0 0;text-align:center;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(252,247,219,.5);z-index:7}
+
+/* анимация */
+.reveal.is-run .reveal__ball{animation:ballAway 1.15s cubic-bezier(.4,0,.5,1) .34s forwards}
+@keyframes ballAway{
+  0%{transform:scale(1);opacity:1}
+  22%{transform:scale(1.07) rotate(-2deg)}
+  60%{transform:scale(1.02);opacity:1}
+  100%{transform:scale(.42) translateY(-38px);opacity:0}
+}
+.reveal.is-run .reveal__glow{animation:glowUp 1s ease forwards}
+@keyframes glowUp{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}
+  40%{opacity:1;transform:translate(-50%,-50%) scale(1.3)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.1)}
+}
+.reveal.is-run .reveal__cracks{animation:cracksIn .55s ease .22s forwards}
+@keyframes cracksIn{0%{opacity:0;transform:scale(.9)}35%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+.reveal.is-run .reveal__flash{animation:flashOut .6s ease .36s forwards}
+@keyframes flashOut{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  22%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(9)}
+}
+.reveal.is-run .reveal__shard{animation:shardFly 1s cubic-bezier(.18,.72,.3,1) .34s forwards}
+@keyframes shardFly{
+  0%{opacity:0;transform:translate(0,0) rotate(0) scale(.4)}
+  16%{opacity:1}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1)}
+}
+
+/* ---------- карточка темы: пять визуальных языков ---------- */
+.theme-veil{position:fixed;inset:0;z-index:75;background:#0A0004;opacity:0;pointer-events:none;
+  transition:opacity .34s ease}
+.theme-veil.is-on{opacity:1;pointer-events:auto}
+
+.theme{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;transition:opacity .3s ease;overflow:hidden;padding:14px 0}
+.theme.is-on{opacity:1;pointer-events:auto}
+
+/* размытая иллюстрация темы как фон сцены */
+.theme__bg{position:absolute;inset:-8%;background-position:center;background-size:cover;
+  filter:saturate(.9) brightness(.3) blur(26px);transform:scale(1.08);
+  opacity:0;transition:opacity .5s ease}
+.theme.is-on .theme__bg{opacity:1}
+.theme__bg::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(90% 60% at 50% 30%,rgba(0,0,0,.05),rgba(0,0,0,.55) 78%,rgba(0,0,0,.8))}
+
+/* звёздное поле — только для «будущего» */
+.theme__stars{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none;
+  background-image:
+    radial-gradient(1.2px 1.2px at 18px 34px,#fff,transparent),
+    radial-gradient(1px 1px at 74px 96px,rgba(255,255,255,.85),transparent),
+    radial-gradient(1.4px 1.4px at 142px 52px,#fff,transparent),
+    radial-gradient(1px 1px at 202px 130px,rgba(255,255,255,.7),transparent),
+    radial-gradient(1.2px 1.2px at 260px 22px,#fff,transparent),
+    radial-gradient(1px 1px at 318px 108px,rgba(255,255,255,.75),transparent),
+    radial-gradient(1.3px 1.3px at 40px 156px,#fff,transparent),
+    radial-gradient(1px 1px at 236px 176px,rgba(255,255,255,.6),transparent);
+  background-size:360px 220px;animation:starDrift 22s linear infinite}
+@keyframes starDrift{from{background-position:0 0}to{background-position:360px 220px}}
+@media (prefers-reduced-motion: reduce){.theme__stars{animation:none}}
+
+/* холст карточки */
+.theme__paper{position:relative;z-index:2;display:flex;flex-direction:column;
+  width:100%;max-width:470px;max-height:calc(100svh - 28px);
+  background:var(--card);color:var(--txt);
+  box-shadow:0 0 0 1px var(--edge), 0 30px 70px -20px rgba(0,0,0,.85);
+  overflow:hidden;transform:translateY(2.5%);transition:transform .5s cubic-bezier(.22,.8,.24,1)}
+.theme.is-on .theme__paper{transform:translateY(0)}
+
+/* внутренняя рамка: не прокручивается вместе с текстом */
+.theme__paper::before{content:"";position:absolute;inset:12px;pointer-events:none;z-index:6;
+  border:1px solid var(--line);border-radius:var(--r-in,2px)}
+.theme__paper::after{content:"";position:absolute;pointer-events:none;z-index:6}
+
+/* уголки-скобки */
+.theme__corners{position:absolute;inset:4px;z-index:7;pointer-events:none;display:none}
+.theme__corners i{position:absolute;width:20px;height:20px;border:0 solid var(--line)}
+.theme__corners i:nth-child(1){left:0;top:0;border-left-width:1.5px;border-top-width:1.5px}
+.theme__corners i:nth-child(2){right:0;top:0;border-right-width:1.5px;border-top-width:1.5px}
+.theme__corners i:nth-child(3){left:0;bottom:0;border-left-width:1.5px;border-bottom-width:1.5px}
+.theme__corners i:nth-child(4){right:0;bottom:0;border-right-width:1.5px;border-bottom-width:1.5px}
+
+/* прокручиваемое содержимое */
+.theme__sheet{position:relative;z-index:3;flex:0 1 auto;min-height:0;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  padding:34px 26px 26px}
+
+/* ромб на арке */
+.theme__jewel{display:none;position:absolute;left:50%;top:-7px;width:14px;height:14px;margin-left:-7px;
+  transform:rotate(45deg);background:var(--ttl);box-shadow:0 0 12px rgba(237,204,120,.75)}
+
+.theme__kicker{position:relative;z-index:1;margin:0 0 12px;font-size:8.5px;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--kick);text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:10px}
+.theme__kicker::before,.theme__kicker::after{content:"";width:22px;height:1px;background:var(--kick);opacity:.5}
+[data-theme="pirate"] .theme__kicker::before,[data-theme="pirate"] .theme__kicker::after{
+  background:none;border-top:1px dashed var(--kick);opacity:.75}
+
+.theme__title{position:relative;z-index:1;margin:0;font-family:var(--f-title);
+  font-size:var(--t-size,24px);line-height:1.2;font-weight:var(--t-weight,600);
+  letter-spacing:var(--t-ls,0);color:var(--ttl);text-align:center;text-wrap:balance}
+
+.theme__orn{display:none;margin:16px auto 20px;max-width:230px;color:var(--ttl);opacity:.85}
+.theme__orn svg{width:100%;height:auto}
+
+.theme__block{margin:0 0 16px}
+.theme__label{margin:0 0 7px;font-size:8px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--kick);opacity:.95}
+.theme__text{margin:0;font-family:var(--f-body);font-size:var(--b-size,13.6px);
+  line-height:var(--b-lh,1.62);color:var(--txt);font-weight:var(--b-weight,400)}
+
+.theme__sep{height:1px;margin:0 0 16px;background:var(--line);opacity:.5}
+
+.theme__note{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--line);
+  font-family:var(--f-body);font-style:italic;font-size:10.8px;line-height:1.6;
+  color:var(--note);opacity:.95}
+
+/* подвал */
+.theme__foot{position:relative;z-index:4;flex:0 0 auto;
+  padding:14px 26px calc(16px + env(safe-area-inset-bottom));background:var(--foot)}
+.theme__foot::before{content:"";position:absolute;left:12px;right:12px;top:0;height:1px;background:var(--line);opacity:.5}
+.theme__cta{position:relative;width:100%;border:0;cursor:pointer;font-family:var(--f-body);
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;padding:15px 12px;
+  color:var(--cta-fg);background:var(--cta-bg);border-radius:var(--cta-r,2px);
+  box-shadow:var(--cta-sh,none);transition:transform .16s ease,filter .2s ease}
+.theme__cta:active{transform:translateY(1px)}
+.theme__cta:focus-visible{outline:2px solid var(--ttl);outline-offset:2px}
+.theme__hint{margin:11px 0 0;font-family:var(--f-body);font-size:10px;line-height:1.5;
+  text-align:center;color:var(--note);opacity:.85}
+
+/* ================= I. полночь и золото ================= */
+[data-theme="tale"]{
+  --f-title:'Cormorant Garamond',Georgia,serif;
+  --card:#0B1424;--foot:#081020;--edge:rgba(204,168,102,.28);
+  --line:rgba(204,168,102,.46);--ttl:#EDCC78;--txt:#E9DCC4;--kick:#D0AB68;--note:#AFA68F;
+  --t-size:25px;--t-weight:600;--b-size:15.4px;--b-lh:1.62;--b-weight:400;
+  --cta-bg:rgba(255,255,255,.035);--cta-fg:#EFD291;--cta-sh:inset 0 0 0 1px rgba(232,200,127,.55),inset 0 0 0 4px rgba(11,20,36,1),inset 0 0 0 5px rgba(232,200,127,.28);
+  --r-in:96px 96px 3px 3px;--cta-r:2px}
+[data-theme="tale"] .theme__bg{background-image:url(assets/theme-tale.jpg);filter:saturate(.8) brightness(.3) blur(28px)}
+[data-theme="tale"] .theme__paper{border-radius:104px 104px 0 0}
+[data-theme="tale"] .theme__paper::before{inset:11px;border-radius:94px 94px 2px 2px}
+[data-theme="tale"] .theme__sheet{padding-top:44px}
+[data-theme="tale"] .theme__jewel{display:block}
+[data-theme="tale"] .theme__text{font-family:'Cormorant Garamond',Georgia,serif}
+[data-theme="tale"] .theme__label{letter-spacing:.3em}
+
+/* ================= II. пергамент и компас ================= */
+[data-theme="pirate"]{
+  --f-title:'Cormorant Garamond',Georgia,serif;
+  --card:#F6E8C9;--foot:#F1E0BC;--edge:rgba(120,84,40,.3);
+  --line:rgba(120,84,40,.42);--ttl:#652617;--txt:#3A2A18;--kick:#8B5F2F;--note:#6A5335;
+  --t-size:26px;--t-weight:700;--b-size:15.2px;--b-lh:1.62;
+  --cta-bg:#6B0A12;--cta-fg:#F8EBD6;--cta-sh:inset 0 0 0 1px rgba(248,235,214,.5);
+  --cta-r:0;--r-in:1px}
+[data-theme="pirate"] .theme__bg{background-image:url(assets/theme-pirate.jpg);filter:saturate(.85) brightness(.62) blur(22px)}
+[data-theme="pirate"] .theme__paper{clip-path:polygon(0.00% 0.56%, 2.50% 0.44%, 5.00% 0.67%, 7.50% 0.33%, 10.00% 0.33%, 12.50% 0.33%, 15.00% 0.56%, 17.50% 0.33%, 20.00% 0.44%, 22.50% 0.33%, 25.00% 0.33%, 27.50% 0.67%, 30.00% 0.67%, 32.50% 0.33%, 35.00% 0.44%, 37.50% 0.33%, 40.00% 0.67%, 42.50% 0.33%, 45.00% 0.33%, 47.50% 0.44%, 50.00% 0.33%, 52.50% 0.67%, 55.00% 0.33%, 57.50% 0.44%, 60.00% 0.33%, 62.50% 0.44%, 65.00% 0.56%, 67.50% 0.67%, 70.00% 0.44%, 72.50% 0.33%, 75.00% 0.56%, 77.50% 0.44%, 80.00% 0.33%, 82.50% 0.44%, 85.00% 0.56%, 87.50% 0.33%, 90.00% 0.33%, 92.50% 0.33%, 95.00% 0.44%, 97.50% 0.67%, 100.00% 0.44%, 99.11% 0.00%, 99.11% 4.44%, 99.29% 8.89%, 99.29% 13.33%, 99.29% 17.78%, 99.11% 22.22%, 99.29% 26.67%, 99.29% 31.11%, 99.29% 35.56%, 99.46% 40.00%, 99.46% 44.44%, 99.11% 48.89%, 99.46% 53.33%, 99.46% 57.78%, 99.11% 62.22%, 99.29% 66.67%, 99.11% 71.11%, 99.29% 75.56%, 99.29% 80.00%, 99.11% 84.44%, 99.29% 88.89%, 99.29% 93.33%, 99.11% 97.78%, 99.29% 100.00%, 100.00% 99.67%, 97.50% 99.67%, 95.00% 99.33%, 92.50% 99.56%, 90.00% 99.44%, 87.50% 99.56%, 85.00% 99.33%, 82.50% 99.33%, 80.00% 99.67%, 77.50% 99.67%, 75.00% 99.44%, 72.50% 99.44%, 70.00% 99.44%, 67.50% 99.33%, 65.00% 99.33%, 62.50% 99.67%, 60.00% 99.67%, 57.50% 99.44%, 55.00% 99.33%, 52.50% 99.67%, 50.00% 99.67%, 47.50% 99.44%, 45.00% 99.33%, 42.50% 99.44%, 40.00% 99.33%, 37.50% 99.44%, 35.00% 99.67%, 32.50% 99.33%, 30.00% 99.44%, 27.50% 99.56%, 25.00% 99.67%, 22.50% 99.33%, 20.00% 99.67%, 17.50% 99.56%, 15.00% 99.44%, 12.50% 99.56%, 10.00% 99.56%, 7.50% 99.33%, 5.00% 99.33%, 2.50% 99.33%, 0.00% 99.56%, 0.54% 100.00%, 0.54% 95.56%, 0.71% 91.11%, 0.71% 86.67%, 0.89% 82.22%, 0.71% 77.78%, 0.54% 73.33%, 0.71% 68.89%, 0.89% 64.44%, 0.71% 60.00%, 0.89% 55.56%, 0.71% 51.11%, 0.71% 46.67%, 0.89% 42.22%, 0.71% 37.78%, 0.54% 33.33%, 0.54% 28.89%, 0.54% 24.44%, 0.54% 20.00%, 0.54% 15.56%, 0.54% 11.11%, 0.89% 6.67%, 0.54% 2.22%, 0.71% 0.00%)}
+[data-theme="pirate"] .theme__paper::before{border-style:dashed;inset:10px}
+[data-theme="pirate"] .theme__text{font-family:'Cormorant Garamond',Georgia,serif}
+[data-theme="pirate"] .theme__cta{outline:1px dashed rgba(248,235,214,.55);outline-offset:-5px}
+[data-theme="pirate"] .theme__sep{background:none;border-top:1px dashed var(--line)}
+
+/* ================= III. обсидиан и неон ================= */
+[data-theme="future"]{
+  --f-title:'Golos Text',Arial,sans-serif;
+  --card:#090B10;--foot:#07090D;--edge:rgba(179,140,84,.3);
+  --line:rgba(179,140,84,.45);--ttl:#F2D188;--txt:#DBDFE3;--kick:#B38C54;--note:#8F949B;
+  --t-size:21px;--t-weight:400;--t-ls:.005em;--b-size:13.4px;--b-lh:1.68;
+  --cta-bg:#D9B268;--cta-fg:#101318;--cta-sh:0 10px 26px -14px rgba(217,178,104,.8);
+  --cta-r:10px;--r-in:1px}
+[data-theme="future"] .theme__bg{background-image:url(assets/theme-future.jpg);filter:saturate(.7) brightness(.22) blur(30px)}
+[data-theme="future"] .theme__stars{opacity:.55}
+[data-theme="future"] .theme__corners{display:block;inset:16px}
+[data-theme="future"] .theme__paper::before{inset:26px;border-color:rgba(179,140,84,.26)}
+[data-theme="future"] .theme__title{font-weight:400;letter-spacing:.004em}
+[data-theme="future"] .theme__kicker{letter-spacing:.34em}
+[data-theme="future"] .theme__cta{font-weight:500;letter-spacing:.24em}
+[data-theme="future"] .theme__cta::before,[data-theme="future"] .theme__cta::after{
+  content:"";position:absolute;top:50%;width:3px;height:3px;border-radius:50%;
+  background:rgba(16,19,24,.45);transform:translateY(-50%)}
+[data-theme="future"] .theme__cta::before{left:14px}
+[data-theme="future"] .theme__cta::after{right:14px}
+[data-theme="future"] .theme__label{font-family:'Golos Text',Arial,sans-serif;letter-spacing:.3em}
+
+/* ================= IV. селадон и медь ================= */
+[data-theme="forest"]{
+  --f-title:'Cormorant Garamond',Georgia,serif;
+  --card:#F3F3E7;--foot:#EDEEE0;--edge:rgba(72,84,54,.28);
+  --line:rgba(72,84,54,.3);--ttl:#284231;--txt:#2E372B;--kick:#67754A;--note:#5E6754;
+  --t-size:26px;--t-weight:700;--b-size:13.5px;--b-lh:1.66;
+  --cta-bg:#556F41;--cta-fg:#F4F7EC;--cta-sh:0 8px 22px -14px rgba(37,50,28,.85);
+  --cta-r:9px;--r-in:2px}
+[data-theme="forest"] .theme__bg{background-image:url(assets/theme-forest.jpg);filter:saturate(.6) brightness(.42) blur(24px)}
+[data-theme="forest"] .theme__paper::before{border-color:var(--line);
+  box-shadow:inset 0 0 0 4px #F3F3E7,inset 0 0 0 5px var(--line)}
+[data-theme="forest"] .theme__paper::after{inset:9px;border:1px solid rgba(72,84,54,.14)}
+[data-theme="forest"] .theme__cta::before,[data-theme="forest"] .theme__cta::after{
+  content:"";position:absolute;top:50%;width:4px;height:4px;border-radius:50%;
+  background:rgba(244,247,236,.55);transform:translateY(-50%)}
+[data-theme="forest"] .theme__cta::before{left:13px}
+[data-theme="forest"] .theme__cta::after{right:13px}
+
+/* ================= V. бархат и платок ================= */
+[data-theme="rus"]{
+  --f-title:'Cormorant Garamond',Georgia,serif;
+  --card:#67080F;--foot:#5C060D;--edge:rgba(236,216,180,.34);
+  --line:rgba(236,216,180,.42);--ttl:#F7E3C2;--txt:#F2DECB;--kick:#E0B97B;--note:#D3B79C;
+  --t-size:26px;--t-weight:600;--b-size:15.2px;--b-lh:1.62;
+  --cta-bg:transparent;--cta-fg:#F7E3C2;--cta-sh:inset 0 0 0 1px rgba(247,227,194,.65);
+  --cta-r:0;--r-in:1px}
+[data-theme="rus"] .theme__bg{background-image:url(assets/theme-rus.jpg);filter:saturate(.9) brightness(.3) blur(26px)}
+[data-theme="rus"] .theme__paper::before{box-shadow:inset 0 0 0 5px #67080F,inset 0 0 0 6px rgba(236,216,180,.3)}
+[data-theme="rus"] .theme__paper::after{content:"";left:12px;right:12px;bottom:3px;height:8px;
+  background:radial-gradient(circle at 5px 8px,rgba(236,216,180,.6) 2px,transparent 2.2px) 0 0/10px 8px repeat-x}
+[data-theme="rus"] .theme__text{font-family:'Cormorant Garamond',Georgia,serif}
+[data-theme="rus"] .theme__cta{outline:1px dotted rgba(247,227,194,.5);outline-offset:-5px}
+
+[data-theme="tale"] .theme__orn.orn--tale{display:block}
+[data-theme="pirate"] .theme__orn.orn--pirate{display:block}
+[data-theme="future"] .theme__orn.orn--future{display:block}
+[data-theme="forest"] .theme__orn.orn--forest{display:block}
+[data-theme="rus"] .theme__orn.orn--rus{display:block}
+@media (max-width:719px){
+  .theme__paper{min-height:calc(100svh - 28px)}
+  .theme__sheet{flex:1 1 auto;display:flex;flex-direction:column}
+  /* пустое место остаётся между примечанием и кнопкой, как в макете */
+  .theme__sheet::after{content:"";flex:1 1 auto;min-height:8px}
+}
+/* полноэкранная сцена на телефоне, карточка на большом экране */
+@media (min-width:720px){
+  .theme{align-items:center;padding:22px}
+  .theme__paper{border-radius:6px;max-height:88svh;
+    box-shadow:0 0 0 1px var(--edge), 0 40px 90px -30px rgba(0,0,0,.9)}
+  [data-theme="tale"] .theme__paper{border-radius:104px 104px 6px 6px}
+  [data-theme="tale"] .theme__paper::before{border-radius:94px 94px 4px 4px}
+  .theme__bg{inset:-12%}
+}
+@media (max-height:640px){
+  .theme__sheet{padding-top:26px}
+  [data-theme="tale"] .theme__sheet{padding-top:32px}
+  .theme__title{font-size:20px}
+  .theme__orn{margin:12px auto 14px}
+}
+@media (prefers-reduced-motion: reduce){
+  .theme__paper{transform:none;transition:none}
+  .theme__bg{opacity:1}
+}
+
+/* ---------- тост ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:90;
+  background:rgba(252,247,219,.96);color:#5C1509;padding:12px 18px;font-size:12px;line-height:1.45;
+  max-width:330px;width:calc(100% - 44px);text-align:center;opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;box-shadow:0 14px 30px -12px rgba(0,0,0,.7)}
+.toast.is-on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- загрузка ---------- */
+.boot{position:fixed;inset:0;z-index:95;background:var(--wine);display:grid;place-items:center;
+  transition:opacity .4s ease,visibility .4s}
+.boot.is-off{opacity:0;visibility:hidden}
+.boot__snow{width:36px;height:36px;color:rgba(240,221,180,.7);animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.12s !important}
+  .reveal.is-run .reveal__ball{opacity:0}
+  .reveal.is-run .reveal__flash,.reveal.is-run .reveal__shard,.reveal.is-run .reveal__glow{display:none}
+}
+@media (max-width:340px){
+  :root{--pad:16px}
+  .ball-item{width:96px}
+  .ball-item svg{width:96px}
+  .garl--two .garl__row{gap:8px}
+}
+@media (min-width:561px){
+  .page{box-shadow:0 0 90px rgba(0,0,0,.7)}
+}
+</style>
+</head>
+<body>
+
+<div class="boot" id="boot">
+  <svg class="boot__snow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+    <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/>
+    <path d="M12 5l-2.2 2.2M12 5l2.2 2.2M12 19l-2.2-2.2M12 19l2.2-2.2M5 12l2.2-2.2M5 12l2.2 2.2M19 12l-2.2-2.2M19 12l-2.2 2.2"/>
+  </svg>
+</div>
+
+<div class="page">
+  
+  <div class="hairline"></div>
+
+  <!-- БЛОК 1 -->
+  <section class="wrap hero">
+    <div class="deco deco--top" aria-hidden="true">
+      <i class="deco__glow"></i><i class="deco__glow"></i><i class="deco__glow"></i>
+    </div>
+    <div class="deco deco--base" aria-hidden="true">
+      <i class="deco__glow"></i><i class="deco__glow"></i><i class="deco__glow"></i>
+    </div>
+    <p class="k-script hero__ho">Хо-хо-хо!</p>
+    <p class="hero__greet">Приветствую мои верные коллеги</p>
+    <div class="ornament hero__rule"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.3 7.4L22 11l-7.7 2.6L12 21l-2.3-7.4L2 11l7.7-2.6z"/></svg></div>
+    <p class="k-body hero__text">Новый год уже на пороге, а у меня всё меньше времени на то, чтобы упаковать и вручить каждому из вас подарки. Поэтому в этом году, традиционно, мне не обойтись без вашей помощи!</p>
+
+    <!-- ДАТА И МЕСТО: гостям они известны. Если нужно напечатать дату и адрес,
+         замените текст ниже, например: 31 декабря, 22:00 <small>ул. Лесная, 8</small> -->
+    <p class="hero__date" id="eventLine">Дата и место вы уже знаете<small>вопросы — к Яникусу</small></p>
+
+    <div class="hero__cue"><i></i>листайте вниз</div>
+  </section>
+
+  <!-- БЛОК 2 -->
+  <section class="wrap mech">
+    <div class="card-cream">
+      <div class="garland" aria-hidden="true">
+      <i class="deco__glow"></i><i class="deco__glow"></i><i class="deco__glow"></i>
+    </div>
+      <div class="bow">
+        <img src="assets/bow.webp" width="620" height="557" alt="" aria-hidden="true">
+      </div>
+      <div class="card-cream__body">
+        <p class="card-cream__title">Как это работает</p>
+        <p class="card-cream__text">Я подготовил для вас волшебные шары с подсказками, которые помогут каждой семье определиться с тем, как упаковать и как вручить мои новогодние подарки.</p>
+        <p class="card-cream__text">Выбирайте любой понравившийся и внимательно читайте инструкции, которые я с любовью подготовил для вас, мои хорошие!</p>
+        <p class="card-cream__sign">Ваш Дед Мороз</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОК 3 -->
+  <section class="wrap balls">
+    <h2 class="balls__title">Внимательно посмотри на эти <em>волшебные шары</em> и выбери любой понравившийся</h2>
+    <p class="balls__warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>
+      <span>Внимание: шар можно выбрать лишь однажды!</span>
+    </p>
+    <div class="hang" id="hang"></div>
+    <div class="balls__hint" id="ballsHint"><i></i><span>нажмите на понравившийся шар</span></div>
+  </section>
+
+  <!-- БЛОК 4 -->
+  <section class="wrap final">
+    
+    <div class="deco deco--floor" aria-hidden="true">
+      <i class="deco__glow"></i><i class="deco__glow"></i><i class="deco__glow"></i>
+    </div>
+    <h2 class="final__title">Вопросы и уточнения</h2>
+    <p class="final__text">По всем вопросам можете обращаться к моему старшему гному.</p>
+    <p class="final__name">— Яникус —</p>
+
+    <div class="final__drop">
+      <i></i>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2l2.6 8.2L23 12l-8.4 1.8L12 22l-2.6-8.2L1 12l8.4-1.8z"/></svg>
+    </div>
+
+    <div class="final__mid">
+      <div class="ornament" style="max-width:200px;margin:0 auto"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.3 7.4L22 11l-7.7 2.6L12 21l-2.3-7.4L2 11l7.7-2.6z"/></svg></div>
+      <p class="final__text" style="margin-top:20px">Желаю удачи и счастливого Нового года!</p>
+      <p class="final__ho">Хо-хо-хо</p>
+      <p class="final__sig">ваш дед мороз</p>
+      <div class="final__thorn"><i></i><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z"/></svg><i></i></div>
+    </div>
+    <div class="final__stage">
+      <img class="final__santa" src="assets/santa.webp"
+           width="760" height="928" alt="Дед Мороз" loading="lazy" decoding="async">
+      <div class="final__branches" aria-hidden="true"></div>
+    </div>
+
+    </section>
+</div>
+
+<!-- подтверждение -->
+<div class="confirm" id="confirm" role="dialog" aria-modal="true" aria-labelledby="cfTitle">
+  <div class="confirm__veil" data-close></div>
+  <div class="confirm__card">
+    <button class="confirm__x" type="button" data-close aria-label="Закрыть">×</button>
+    <div class="confirm__ball" id="cfBall"></div>
+    <h2 class="confirm__title" id="cfTitle">Открыть этот шар?</h2>
+    <p class="confirm__text">Он достанется вам навсегда и станет недоступен другим гостям. Выбрать второй раз не получится.</p>
+    <button class="confirm__btn" type="button" id="cfYes">Да, открыть шар</button>
+    <button class="confirm__btn confirm__btn--ghost" type="button" data-close>Выбрать другой</button>
+  </div>
+</div>
+
+<!-- сцена раскрытия -->
+<div class="reveal" id="reveal">
+  <div class="reveal__stage">
+    <div class="reveal__glow"></div>
+    <div class="reveal__ball" id="rvBall"></div>
+    <div class="reveal__cracks">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#FFF8E2" stroke-width="1.2" opacity=".92">
+        <path d="M100 18l-8 40 13 18-7 22 14 20-6 18 8 22"/>
+        <path d="M100 58l-30-12M113 76l28-14M99 98l-32 11M114 118l26 12M101 138l-24 20M96 40l18-8"/>
+        <path d="M70 84l-16 6M132 96l16 5M84 132l-14 8M128 32l14-10M62 122l-14 10"/>
+      </svg>
+    </div>
+    <div class="reveal__shards" id="rvShards"></div>
+    <div class="reveal__flash"></div>
+    <p class="reveal__caption" id="rvCap">шар раскрывается…</p>
+  </div>
+</div>
+
+<!-- карточка темы -->
+<div class="theme-veil" id="themeVeil"></div>
+<div class="theme" id="theme" role="dialog" aria-modal="true" aria-labelledby="thTitle" data-theme="tale">
+  <div class="theme__bg" aria-hidden="true"></div>
+  <div class="theme__stars" aria-hidden="true"></div>
+  <div class="theme__paper">
+    <div class="theme__jewel" aria-hidden="true"></div>
+    <div class="theme__corners" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="theme__sheet" id="thSheet">
+      <p class="theme__kicker" id="thKicker">ваш шар · I</p>
+      <h2 class="theme__title" id="thTitle">—</h2>
+
+      <div class="theme__orn orn--tale" aria-hidden="true"><svg viewBox="0 0 220 18" fill="none"><path d="M4 9h74" stroke="currentColor" stroke-width="1"/><path d="M142 9h74" stroke="currentColor" stroke-width="1"/><path d="M110 2l3.4 6 6 3.4-6 3.4-3.4 6-3.4-6-6-3.4 6-3.4z" fill="currentColor"/><circle cx="96" cy="9" r="1.3" fill="currentColor"/><circle cx="124" cy="9" r="1.3" fill="currentColor"/></svg></div>
+
+      <div class="theme__orn orn--pirate" aria-hidden="true"><svg viewBox="0 0 220 18" fill="none"><path d="M6 9h76M138 9h76" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/><path d="M110 2.5l2.2 5.3 5.3 1.2-5.3 1.2-2.2 5.3-2.2-5.3-5.3-1.2 5.3-1.2z" fill="currentColor"/><path d="M110 1v16M102 9h16" stroke="currentColor" stroke-width=".7" opacity=".55"/></svg></div>
+
+      <div class="theme__orn orn--future" aria-hidden="true"><svg viewBox="0 0 220 18" fill="none"><path d="M4 9h88M128 9h88" stroke="currentColor" stroke-width="1"/><rect x="106" y="5" width="4" height="8" fill="currentColor" opacity=".8"/><rect x="114" y="5" width="4" height="8" fill="currentColor" opacity=".8"/><path d="M110 3.4l3.4 5.6-3.4 5.6-3.4-5.6z" fill="currentColor" opacity=".35"/></svg></div>
+
+      <div class="theme__orn orn--forest" aria-hidden="true"><svg viewBox="0 0 220 18" fill="none"><path d="M4 9h86M130 9h86" stroke="currentColor" stroke-width="1"/><path d="M110 3c4 0 6 2.4 6 6s-2 6-6 6-6-2.4-6-6 2-6 6-6z" fill="currentColor" opacity=".55"/><ellipse cx="99" cy="9" rx="4" ry="2.6" transform="rotate(-24 99 9)" fill="currentColor" opacity=".8"/><ellipse cx="121" cy="9" rx="4" ry="2.6" transform="rotate(24 121 9)" fill="currentColor" opacity=".8"/></svg></div>
+
+      <div class="theme__orn orn--rus" aria-hidden="true"><svg viewBox="0 0 220 18" fill="none"><path d="M4 9h86M130 9h86" stroke="currentColor" stroke-width="1"/><g fill="currentColor"><circle cx="110" cy="5" r="2.1"/><circle cx="116" cy="9" r="2.1"/><circle cx="110" cy="13" r="2.1"/><circle cx="104" cy="9" r="2.1"/><circle cx="110" cy="9" r="1.5" opacity=".55"/></g></svg></div>
+
+      <div class="theme__block">
+        <p class="theme__label" id="thLabelA">упаковка</p>
+        <p class="theme__text" id="thTextA"></p>
+      </div>
+      <div class="theme__sep" aria-hidden="true"></div>
+      <div class="theme__block">
+        <p class="theme__label" id="thLabelB">исполнение</p>
+        <p class="theme__text" id="thTextB"></p>
+      </div>
+      <p class="theme__note">Всё указанное — лишь пример для понимания. Любые творческие вольности приветствуются и поощряются.</p>
+    </div>
+    <div class="theme__foot">
+      <button class="theme__cta" type="button" id="thClose">Запомнил, это мой стиль</button>
+      <p class="theme__hint" id="thHint">Ссылка на эту страницу запомнит ваш шар</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+'use strict';
+
+/* ================== ДАННЫЕ ТЕМ ================== */
+const THEMES = [
+  {
+    id:'tale', img:'assets/theme-tale.jpg', num:'I', name:'Любимая русская сказка',
+    c1:'#FBE4AC', c2:'#C08A33', c3:'#4C2005',
+    labelA:'упаковка',
+    a:'Упаковочная бумага с изображениями персонажей из выбранной сказки, упаковка с элементами из сказки (например, рыболовная сеть из сказки «Золотая рыбка»). Можно выбрать несколько сказок.',
+    b:'Например, выбрана сказка «Золотая рыбка» — можно надеть какой-то золотой атрибут «золотой рыбки» и вручать подарки, как бы исполняя желания.'
+  },
+  {
+    id:'pirate', img:'assets/theme-pirate.jpg', num:'II', name:'Пиратский клад',
+    c1:'#A9DCC2', c2:'#2C6A56', c3:'#08201A',
+    labelA:'атрибуты',
+    a:'Упаковочная бумага в стиле карты или с кораблями, либо подарки могут быть сложены в деревянный ящик «из-под рома».',
+    b:'Пират в шляпе вручает подарки, как бы деля между всеми клад, приговаривая «йо-хо-хо» и попивая из горла любимый напиток.'
+  },
+  {
+    id:'future', img:'assets/theme-future.jpg', num:'III', name:'Подарок из будущего',
+    c1:'#F2F5FF', c2:'#A6B4E6', c3:'#3F4079',
+    labelA:'атрибуты',
+    a:'Космическая упаковочная бумага, бумага с голограммами и роботами.',
+    b:'Вручать подарки как робот — или разыграть сценку, что подарки были куплены и присланы искусственным интеллектом, и вручать их с зачитыванием пожеланий от Высшего разума.'
+  },
+  {
+    id:'forest', img:'assets/theme-forest.jpg', num:'IV', name:'Подарок из леса',
+    c1:'#DCEBC6', c2:'#57784A', c3:'#1B2A14',
+    labelA:'атрибуты',
+    a:'Упаковочная бумага с лесными зверятами, упаковать в кору, облепить шишками, ветками, ягодами.',
+    b:'В костюме любого лесного зверька вручить подарки за обещание не вредить дикой природе и сохранять её в чистоте и порядке. Обещание можно придумать для каждого гостя уникальное.'
+  },
+  {
+    id:'rus', img:'assets/theme-rus.jpg', num:'V', name:'Русский подарок',
+    c1:'#F4F8FF', c2:'#7BA4DF', c3:'#16336B',
+    labelA:'атрибуты',
+    a:'Упаковка «Гжель» или любой другой русский узор, упаковать как банку с соленьями, обернуть в платок.',
+    b:'Вручать подарки как скоморох, напевая частушку про каждого гостя. Или рассказывая добрую и напутствующую пословицу.'
+  }
+];
+
+/* ================== УЗОРЫ НА ШАРАХ ================== */
+function pattern(id){
+  if(id==='tale') return `
+    <g fill="#FFF7DA" opacity=".85">
+      <circle cx="52" cy="96" r="1.5"/><circle cx="72" cy="86" r="1"/><circle cx="96" cy="98" r="1.6"/>
+      <circle cx="116" cy="88" r="1"/><circle cx="44" cy="128" r="1.1"/><circle cx="64" cy="118" r="1.7"/>
+      <circle cx="88" cy="126" r="1"/><circle cx="110" cy="118" r="1.5"/><circle cx="126" cy="132" r="1"/>
+      <circle cx="50" cy="158" r="1.4"/><circle cx="74" cy="166" r="1"/><circle cx="100" cy="160" r="1.6"/>
+      <circle cx="122" cy="170" r="1"/><circle cx="60" cy="186" r="1"/><circle cx="94" cy="190" r="1.2"/>
+    </g>
+    <g fill="#FFFBEA" opacity=".9">
+      <path d="M80 74l1.6 5 5 1.6-5 1.6-1.6 5-1.6-5-5-1.6 5-1.6z"/>
+      <path d="M132 150l1.2 3.6 3.6 1.2-3.6 1.2-1.2 3.6-1.2-3.6-3.6-1.2 3.6-1.2z"/>
+    </g>
+    <path d="M34 140q16-20 32 0t32 0" fill="none" stroke="#FFF7DA" stroke-width="1.1" opacity=".5"/>`;
+  if(id==='pirate') return `
+    <g stroke="#F6EBC8" stroke-width="1" opacity=".33">
+      <path d="M28 96l104-34M28 112l104-34M28 128l104-34M28 144l104-34M28 160l104-34M28 176l104-34"/>
+    </g>
+    <g stroke="#F6EBC8" stroke-width="1.6" opacity=".5"><path d="M44 176L116 108M116 176L44 108"/></g>
+    <g fill="none" stroke="#FDF3D6" stroke-width="1.2" opacity=".55">
+      <circle cx="80" cy="142" r="7"/><path d="M74 149v5M86 149v5M80 154v5"/>
+    </g>`;
+  if(id==='future') return `
+    <g opacity=".65">
+      <path d="M18 100h124" stroke="#DDE6FF" stroke-width="7" opacity=".25"/>
+      <path d="M18 122h124" stroke="#EAF0FF" stroke-width="4" opacity=".2"/>
+      <path d="M18 150h124" stroke="#DDE6FF" stroke-width="9" opacity=".22"/>
+      <path d="M18 176h124" stroke="#EAF0FF" stroke-width="3" opacity=".2"/>
+    </g>
+    <g fill="#FFFFFF" opacity=".82">
+      <circle cx="48" cy="104" r="1.4"/><circle cx="96" cy="98" r="1"/><circle cx="124" cy="112" r="1.3"/>
+      <circle cx="40" cy="140" r="1"/><circle cx="70" cy="134" r="1.6"/><circle cx="108" cy="142" r="1.2"/>
+      <circle cx="56" cy="172" r="1.3"/><circle cx="88" cy="166" r="1"/><circle cx="120" cy="178" r="1.4"/>
+    </g>
+    <path d="M30 128l100-30" stroke="#FFFFFF" stroke-width="10" opacity=".16"/>`;
+  if(id==='forest') return `
+    <g fill="#EAF7DC" opacity=".72">
+      <path d="M40 158l10-20 10 20z"/><path d="M66 168l9-18 9 18z"/><path d="M92 156l11-22 11 22z"/>
+      <path d="M118 170l9-18 9 18z"/>
+    </g>
+    <g fill="#FFFFFF" opacity=".7">
+      <circle cx="52" cy="98" r="1.4"/><circle cx="80" cy="88" r="1"/><circle cx="110" cy="100" r="1.5"/>
+      <circle cx="66" cy="122" r="1.1"/><circle cx="98" cy="118" r="1.6"/><circle cx="126" cy="130" r="1"/>
+      <circle cx="46" cy="132" r="1"/><circle cx="76" cy="146" r="1.3"/><circle cx="112" cy="148" r="1"/>
+      <circle cx="60" cy="184" r="1.2"/><circle cx="94" cy="188" r="1"/><circle cx="124" cy="186" r="1.3"/>
+    </g>`;
+  if(id==='rus') return `
+    <g fill="none" stroke="#FFFFFF" stroke-width="1.6" opacity=".85" stroke-linecap="round">
+      <path d="M80 168c0-18-14-26-14-40 0-10 6-16 14-16s14 6 14 16c0 14-14 22-14 40"/>
+      <path d="M80 168c-14-6-26-2-32 8M80 168c14-6 26-2 32 8"/>
+      <path d="M62 130c-12 2-18 12-16 22M98 130c12 2 18 12 16 22"/>
+      <path d="M44 108c-8 6-8 16 0 20 8 4 14-4 10-12M116 108c8 6 8 16 0 20-8 4-14-4-10-12"/>
+    </g>
+    <g fill="#FFFFFF" opacity=".9">
+      <circle cx="80" cy="100" r="2.6"/><circle cx="52" cy="118" r="1.7"/><circle cx="108" cy="118" r="1.7"/>
+      <circle cx="46" cy="140" r="1.5"/><circle cx="114" cy="140" r="1.5"/>
+      <circle cx="80" cy="150" r="1.5"/><circle cx="66" cy="164" r="1.2"/><circle cx="94" cy="164" r="1.2"/>
+    </g>`;
+  return '';
+}
+
+let UID = 0;
+function ballSVG(t, size){
+  const p = t.id + '-' + (++UID);
+  return `<svg viewBox="0 0 160 210" width="${size}" role="img" aria-label="Новогодний шар">
+  <defs>
+    <radialGradient id="bg-${p}" cx="34%" cy="27%" r="80%">
+      <stop offset="0%" stop-color="#FFFDF4"/><stop offset="16%" stop-color="${t.c1}"/>
+      <stop offset="58%" stop-color="${t.c2}"/><stop offset="100%" stop-color="${t.c3}"/>
+    </radialGradient>
+    <linearGradient id="gd-${p}" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8A6534"/><stop offset="38%" stop-color="#EFD8A8"/>
+      <stop offset="66%" stop-color="#B58C4F"/><stop offset="1" stop-color="#6F4A22"/>
+    </linearGradient>
+    <linearGradient id="th-${p}" gradientUnits="userSpaceOnUse" x1="80" y1="0" x2="80" y2="52">
+      <stop offset="0" stop-color="#D9B98A" stop-opacity=".85"/><stop offset="1" stop-color="#D9B98A" stop-opacity=".3"/>
+    </linearGradient>
+    <clipPath id="cl-${p}"><circle cx="80" cy="128" r="62"/></clipPath>
+    <filter id="bl-${p}" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.4"/></filter>
+  </defs>
+  <line x1="80" y1="0" x2="80" y2="52" stroke="url(#th-${p})" stroke-width="1"/>
+  <circle cx="80" cy="52" r="3.4" fill="none" stroke="url(#gd-${p})" stroke-width="2.2"/>
+  <rect x="71" y="53" width="18" height="17" rx="3.5" fill="url(#gd-${p})"/>
+  <rect x="76" y="49" width="8" height="6" rx="2" fill="url(#gd-${p})"/>
+  <circle cx="80" cy="128" r="62" fill="url(#bg-${p})"/>
+  <g clip-path="url(#cl-${p})">
+    ${pattern(t.id)}
+    <ellipse cx="80" cy="196" rx="58" ry="26" fill="#000" opacity=".18" filter="url(#bl-${p})"/>
+  </g>
+  <circle cx="80" cy="128" r="62" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="1.5"/>
+  <ellipse cx="58" cy="96" rx="17" ry="11" transform="rotate(-30 58 96)" fill="#FFF" opacity=".6" filter="url(#bl-${p})"/>
+  <ellipse cx="100" cy="168" rx="26" ry="14" transform="rotate(-28 100 168)" fill="#FFF" opacity=".12" filter="url(#bl-${p})"/>
+</svg>`;
+}
+
+/* ================== СОСТОЯНИЕ ================== */
+const LS_TOKEN='ny_ball_token', LS_MINE='ny_ball_mine', LS_TAKEN='ny_ball_taken';
+const $=id=>document.getElementById(id);
+let state = { taken:[], mine:null, offline:false };
+let pendingBall = null;
+let busy = false;
+
+function getToken(){
+  let t = null;
+  try{ t = localStorage.getItem(LS_TOKEN); }catch(e){}
+  if(!t){
+    t = 'g-' + Math.random().toString(36).slice(2,10) + Date.now().toString(36);
+    try{ localStorage.setItem(LS_TOKEN, t); }catch(e){}
+  }
+  return t;
+}
+const TOKEN = getToken();
+
+function lsTaken(){ try{ return JSON.parse(localStorage.getItem(LS_TAKEN)||'[]'); }catch(e){ return []; } }
+function lsMine(){ try{ return JSON.parse(localStorage.getItem(LS_MINE)||'null'); }catch(e){ return null; } }
+function lsSave(n){
+  try{
+    localStorage.setItem(LS_MINE, JSON.stringify(n));
+    const t = new Set(lsTaken()); t.add(n);
+    localStorage.setItem(LS_TAKEN, JSON.stringify([...t]));
+  }catch(e){}
+}
+
+async function loadState(){
+  try{
+    const r = await fetch('/api/state?token='+encodeURIComponent(TOKEN), {cache:'no-store'});
+    if(!r.ok) throw new Error('http '+r.status);
+    const j = await r.json();
+    state = { taken:Array.isArray(j.taken)?j.taken:[], mine:j.mine ?? null, offline:false };
+  }catch(e){
+    state = { taken:lsTaken(), mine:lsMine(), offline:true };
+  }
+  render();
+}
+
+async function claim(ball){
+  try{
+    const r = await fetch('/api/pick', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ ball, token:TOKEN })
+    });
+    const j = await r.json().catch(()=>({}));
+    if(r.status===409) return { ok:false, conflict:true, soldout:!!j.soldout, taken:Array.isArray(j.taken)?j.taken:[] };
+    if(!r.ok) throw new Error('http '+r.status);
+    if(!j.ok) return { ok:false, conflict:true, taken:Array.isArray(j.taken)?j.taken:[] };
+    return { ok:true, mine:j.mine ?? ball };
+  }catch(e){
+    // нет сервера — работаем на памяти браузера
+    const taken = lsTaken();
+    if(taken.includes(ball)) return { ok:false, conflict:true, taken };
+    if(taken.length >= 5) return { ok:false, conflict:true, soldout:true, taken };
+    lsSave(ball);
+    return { ok:true, mine:ball, offline:true };
+  }
+}
+
+/* ================== ОТРИСОВКА ШАРОВ ================== */
+const hang = $('hang');
+function render(){
+  hang.innerHTML = '';
+  const groups = [
+    { list:[THEMES[0], THEMES[2], THEMES[1]], offs:[0,24,8], dots:[16,50,84], two:false },
+    { list:[THEMES[3], THEMES[4]], offs:[0,0], dots:[32,68], two:true }
+  ];
+  groups.forEach(g=>{
+    const garl = document.createElement('div');
+    garl.className = 'garl' + (g.two?' garl--two':'');
+    garl.innerHTML = '<div class="garl__wire">'+g.dots.map(d=>`<i style="left:${d}%"></i>`).join('')+'</div>';
+    const row = document.createElement('div');
+    row.className = 'garl__row';
+    g.list.forEach((t,i)=>{
+      const idx = THEMES.indexOf(t) + 1;
+      const isTaken = state.taken.includes(idx);
+      const isMine = state.mine === idx;
+      const b = document.createElement('button');
+      b.type='button';
+      b.className = 'ball-item' + (isTaken?' ball-item--taken':'') + (isMine?' ball-item--mine':'');
+      b.style.marginTop = g.offs[i]+'px';
+      b.dataset.ball = idx;
+      b.setAttribute('aria-label', isTaken ? 'Шар уже выбран другим гостем' : 'Выбрать шар');
+      if(isTaken && !isMine) b.disabled = true;
+      b.innerHTML = ballSVG(t,112) +
+        '<span class="ball-item__cap">'+(isMine?'ваш шар':(isTaken?'этот шар уже выбрали':''))+'</span>';
+      row.appendChild(b);
+    });
+    garl.appendChild(row);
+    hang.appendChild(garl);
+  });
+
+  // подсказка и предупреждение зависят от того, остались ли шары
+  const hint = document.getElementById('ballsHint');
+  if (hint) {
+    const all = state.taken.length >= THEMES.length;
+    hint.querySelector('span').textContent = all
+      ? 'все пять шаров уже разобрали'
+      : 'нажмите на понравившийся шар';
+    hint.style.opacity = all ? '.55' : '';
+  }
+  const warnEl = document.querySelector('.balls__warn span');
+  if (warnEl) {
+    warnEl.textContent = state.taken.length >= THEMES.length
+      ? 'Все шары разобрали. Если вам нужен ещё один — напишите Яникусу.'
+      : 'Внимание: шар можно выбрать лишь однажды!';
+  }
+}
+
+/* ================== ВЫБОР ШАРА ================== */
+hang.addEventListener('click', e=>{
+  const btn = e.target.closest('.ball-item');
+  if(!btn || busy) return;
+  const idx = Number(btn.dataset.ball);
+  if(btn.disabled) return;
+  if(state.mine === idx){ openTheme(idx, true); return; }
+  askConfirm(idx);
+});
+
+const confirmEl = $('confirm');
+function askConfirm(idx){
+  pendingBall = idx;
+  $('cfBall').innerHTML = ballSVG(THEMES[idx-1], 76);
+  confirmEl.classList.add('is-on');
+  document.body.style.overflow='hidden';
+}
+function closeConfirm(){
+  confirmEl.classList.remove('is-on');
+  document.body.style.overflow='';
+  pendingBall = null;
+}
+confirmEl.addEventListener('click', e=>{
+  if(e.target.hasAttribute('data-close')) closeConfirm();
+});
+$('cfYes').addEventListener('click', async ()=>{
+  if(!pendingBall || busy) return;
+  busy = true;
+  const idx = pendingBall;
+  closeConfirm();
+  const res = await claim(idx);
+  if(res.ok){
+    state.mine = res.mine;
+    if(!state.taken.includes(res.mine)) state.taken.push(res.mine);
+    playReveal(idx, ()=> { state.mine = res.mine; render(); openTheme(idx,false); });
+  } else {
+    state.taken = res.taken;
+    render();
+    toast(res.soldout
+      ? 'Свободных шаров больше не осталось. Все пять уже разобрали.'
+      : 'Этот шар только что забрали. Выберите другой свободный шар.');
+  }
+  busy = false;
+});
+
+/* ================== АНИМАЦИЯ РАСКРЫТИЯ ================== */
+const revealEl = $('reveal');
+const SHARDS = [
+  [96,-74,42,1],[120,58,-26,.85],[48,116,64,1.1],[-10,100,-48,.8],
+  [-78,-50,30,.95],[66,-116,-58,.9],[-90,26,-70,.85]
+];
+let shardBuilt = false;
+function buildShards(){
+  if(shardBuilt) return;
+  const box = $('rvShards');
+  SHARDS.forEach(([dx,dy,rot])=>{
+    const s=document.createElement('span');
+    s.className='reveal__shard';
+    s.style.setProperty('--dx',dx+'px');
+    s.style.setProperty('--dy',dy+'px');
+    s.style.setProperty('--rot',rot+'deg');
+    box.appendChild(s);
+  });
+  shardBuilt = true;
+}
+
+function playReveal(idx, done){
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  buildShards();
+  $('rvBall').innerHTML = ballSVG(THEMES[idx-1], 168);
+  $('rvCap').textContent = 'шар раскрывается';
+  revealEl.classList.add('is-on');
+  document.body.style.overflow='hidden';
+  requestAnimationFrame(()=> requestAnimationFrame(()=> revealEl.classList.add('is-run')));
+  const total = reduced ? 500 : 1250;
+  setTimeout(()=>{
+    revealEl.classList.remove('is-run');
+    revealEl.classList.remove('is-on');
+    document.body.style.overflow='';
+    done();
+  }, total);
+}
+
+/* ================== КАРТОЧКА ТЕМЫ ================== */
+const themeEl = $('theme');
+function openTheme(idx, revisit){
+  const t = THEMES[idx-1];
+  themeEl.dataset.theme = t.id;
+  $('thKicker').textContent = 'ваш шар · ' + t.num;
+  $('thTitle').innerHTML = 'Стиль «' + t.name + '»';
+  $('thLabelA').textContent = t.labelA;
+  $('thTextA').textContent = t.a;
+  $('thTextB').textContent = t.b;
+  $('thClose').textContent = 'Запомнил, это мой стиль';
+  $('thHint').textContent = revisit ? 'Это ваш шар: он закреплён за вами' : 'Запомните тему — второй шар выбрать нельзя';
+  $('thSheet').scrollTop = 0;
+  themeEl.classList.add('is-on');
+  $('themeVeil').classList.add('is-on');
+  document.body.style.overflow='hidden';
+}
+$('thClose').addEventListener('click', ()=>{
+  themeEl.classList.remove('is-on');
+  $('themeVeil').classList.remove('is-on');
+  document.body.style.overflow='';
+});
+
+/* ================== ТОСТ ================== */
+let toastTimer=null;
+function toast(msg){
+  const el=$('toast');
+  el.textContent=msg;
+  el.classList.add('is-on');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('is-on'), 3600);
+}
+
+/* ================== СТАРТ ================== */
+(async function start(){
+  await loadState();
+  $('boot').classList.add('is-off');
+  if(state.mine){
+    setTimeout(()=>{ openTheme(state.mine, true); }, 420);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "volshebnye-shary",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт-анонс новогодней ночи: пять волшебных шаров с темами подарков",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
